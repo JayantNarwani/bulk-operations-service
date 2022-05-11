@@ -1,0 +1,2 @@
+sku_number,lead_time,shelf_life,reorder_qty,buffer_day_1,buffer_day_2,buffer_day_3,buffer_day_delay_1,buffer_day_delay_2,buffer_day_delay_3,is_auto_update
+1,1,10,2,1,3,5,1,1,3,true

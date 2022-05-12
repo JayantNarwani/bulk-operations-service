@@ -14,7 +14,7 @@ func Test_processFile(t *testing.T) {
 		body := new(bytes.Buffer)
 		mw := multipart.NewWriter(body)
 
-		filePath := "bulk_create_update_sku_ops.csv"
+		filePath := "sku_ops.xlsx"
 		file, err := os.Open(filePath)
 		if err != nil {
 			t.Fatal(err)

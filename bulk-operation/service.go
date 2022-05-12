@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-type SKUUpdates struct {
+type SKUOpsUpdate struct {
 	SKUNumber       int  `csv:"sku_number"`
 	LeadTime        int  `csv:"lead_time"`
 	ShelfLife       int  `csv:"shelf_life"`
@@ -24,7 +24,7 @@ type SKUUpdates struct {
 
 func processFile(file multipart.File) {
 	// convert into array of structs
-	var skuUpdates []SKUUpdates
+	var skuOpsUpdates []SKUOpsUpdate
 
 	// Read file
 	f, err := excelize.OpenReader(file)
@@ -52,7 +52,7 @@ func processFile(file multipart.File) {
 			bufferDayDelay3, _ := strconv.Atoi(row[9])
 			isAutoUpdate, _ := strconv.ParseBool(row[10])
 
-			skuUpdate := SKUUpdates{
+			skuUpdate := SKUOpsUpdate{
 				SKUNumber:       skuNumber,
 				LeadTime:        leadTime,
 				ShelfLife:       shelfLife,
@@ -66,7 +66,7 @@ func processFile(file multipart.File) {
 				IsAutoUpdate:    isAutoUpdate,
 			}
 
-			skuUpdates = append(skuUpdates, skuUpdate)
+			skuOpsUpdates = append(skuOpsUpdates, skuUpdate)
 
 			fmt.Printf("%v : %v ", header[i], row[i])
 		}

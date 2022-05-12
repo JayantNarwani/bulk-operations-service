@@ -19,6 +19,8 @@ func Test_processFile(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+
+		// Below seems duplicate todo remove one.
 		w, err := mw.CreateFormFile("file", filePath)
 		if err != nil {
 			t.Fatal(err)
@@ -27,7 +29,12 @@ func Test_processFile(t *testing.T) {
 		if _, err := io.Copy(w, file); err != nil {
 			t.Fatal(err)
 		}
+		defer file.Close()
+		buf := bytes.NewBuffer(nil)
+		if _, err := io.Copy(buf, file); err != nil {
+			t.Fatal(err)
+		}
 
-		processFile(file)
+		processFile(buf)
 	})
 }

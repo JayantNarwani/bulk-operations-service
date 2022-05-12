@@ -1,7 +1,9 @@
 package bulkoperation
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -21,7 +23,12 @@ func UploadFile(c echo.Context) error {
 		log.Error("Error while opening the file")
 		return err
 	}
+
 	defer file.Close()
-	processFile(file)
+	buf := bytes.NewBuffer(nil)
+	if _, err := io.Copy(buf, file); err != nil {
+		return err
+	}
+	processFile(buf)
 	return c.String(http.StatusAccepted, fmt.Sprintf("Request accpeted for service %v, will be processed soon.", service))
 }

@@ -1,11 +1,12 @@
 package bulkoperation
 
 import (
+	"bytes"
 	"fmt"
-	"github.com/xuri/excelize/v2"
 	"log"
-	"mime/multipart"
 	"strconv"
+
+	"github.com/xuri/excelize/v2"
 )
 
 type SKUOpsUpdate struct {
@@ -22,10 +23,9 @@ type SKUOpsUpdate struct {
 	IsAutoUpdate    bool `csv:"is_auto_update"`
 }
 
-func processFile(file multipart.File) {
+func processFile(file *bytes.Buffer) {
 	// convert into array of structs
 	var skuOpsUpdates []SKUOpsUpdate
-
 	// Read file
 	f, err := excelize.OpenReader(file)
 	if err != nil {

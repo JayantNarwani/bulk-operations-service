@@ -11,18 +11,17 @@ import (
 func UploadFile(c echo.Context) error {
 
 	service := c.FormValue("service")
-	// Source
-	file, err := c.FormFile("file")
+	fileHeader, err := c.FormFile("file")
 	if err != nil {
 		log.Error("Error while uploading the file. ")
 		return err
 	}
-	src, err := file.Open()
+	file, err := fileHeader.Open()
 	if err != nil {
 		log.Error("Error while opening the file")
 		return err
 	}
-	defer src.Close()
-	processFile(src)
+	defer file.Close()
+	processFile(file)
 	return c.String(http.StatusAccepted, fmt.Sprintf("Request accpeted for service %v, will be processed soon.", service))
 }
